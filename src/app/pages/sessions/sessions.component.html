@@ -1,1 +1,26 @@
-<p>{{sessions_id}}</p>
+<section class="grid md:grid-cols-2 gap-4 md:w-[70%] w-[90%] mt-28 mx-auto">
+
+    <article class="border-[1px] p-5 flex flex-col gap-4">
+
+        @for (item of sessions$ | async; track $index) {
+
+            <section class="flex flex-row items-center">
+
+                <div class="flex flex-row items-center">
+
+                    <p class="mr-3">Fecha: {{item.date}},</p>
+                    <p>Disponibilidad: {{item.availability}}</p>
+
+                </div>
+
+                <input type="number">
+
+            </section>
+
+        }
+
+    </article>
+
+    <article>Hola</article>
+
+</section>
