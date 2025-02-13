@@ -1,0 +1,15 @@
+<article class="relative border-[1px] border-gray-500 pb-20 md:min-h-[470px]">
+
+    <h3 class="w-[96%] mx-auto mt-2 text-cyan-700 font-bold">{{item.title}}</h3>
+
+    <h5 class="w-[96%] mx-auto mb-2 mt-2 text-cyan-700 text-sm">{{item.subtitle}}</h5>
+
+    <img src="assets/img/sample-image.jpg" alt="">
+
+    <p class="w-[96%] mx-auto mt-2 text-sm">{{item.startDate}} - {{item.endDate}}</p>
+
+    <p class="w-[96%] mx-auto mt-2 text-sm md:flex hidden">{{item.description}}</p>
+
+    <button class="absolute bottom-0 w-full text-[white] bg-cyan-700 py-3" [routerLink]="['/sessions/' + item.id]">Comprar</button>
+
+</article>
