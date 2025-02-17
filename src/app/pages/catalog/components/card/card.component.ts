@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Event } from '../../../../interfaces/event';
 import { RouterLink } from '@angular/router';
 
@@ -7,7 +7,9 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './card.component.html',
-  styleUrl: './card.component.scss'
+  styleUrl: './card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+  
 })
 export class CardComponent {
 
