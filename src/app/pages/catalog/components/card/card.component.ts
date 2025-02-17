@@ -34,21 +34,29 @@ export class CardComponent {
 
   public formatStartDate() {
 
-    const date = new Date(parseInt(this.item.startDate));
-  
-    const formatted_date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+    if (this.item.startDate != undefined) {
 
-    this.item.startDate = formatted_date;
+      const date = new Date(parseInt(this.item.startDate));
+
+      const formatted_date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+
+      this.item.startDate = formatted_date;
+
+    }
 
   }
 
   public formatEndDate() {
 
-    const date = new Date(parseInt(this.item.endDate));
-  
-    const formatted_date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+    if (this.item.endDate != undefined) {
 
-    this.item.endDate = formatted_date;
+      const date = new Date(parseInt(this.item.endDate));
+
+      const formatted_date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+
+      this.item.endDate = formatted_date;
+
+    }
 
   }
 
