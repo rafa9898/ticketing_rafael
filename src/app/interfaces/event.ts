@@ -4,9 +4,9 @@ export interface Event {
     title: string,
     subtitle: string,
     image: string,
-    place: string,
-    startDate: string,
-    endDate: string,
-    description: string
+    place?: string,
+    startDate?: string,
+    endDate?: string,
+    description?: string
 
 }
