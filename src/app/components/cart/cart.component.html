@@ -1,3 +1,22 @@
 <article>
 
+    @for (item of cart$ | async; track $index) {
+
+    <section class="mb-5">
+
+        <h3 class="text-3xl">{{item.title}}</h3>
+
+        <section class="flex flex-row items-center justify-between mt-2">
+
+            <span>{{item.date}}</span>
+
+            <div class="flex flex-row items-center">x{{item.tickets}} <img src="assets/img/trash.png" (click)="deleteSessions(item.id, item.date)"
+                    class="w-[20px] ml-3" alt=""></div>
+
+        </section>
+
+    </section>
+
+    }
+
 </article>

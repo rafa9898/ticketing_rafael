@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { ItemCart } from '../interfaces/item-cart';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -15,25 +15,42 @@ export class CartServiceService {
 
   public addTickets(item_cart: ItemCart) {
 
-    if(this.listTickets.length == 0) this.listTickets.push(item_cart);
+    if (this.listTickets.length == 0) this.listTickets.push(item_cart);
 
     else {
 
-      if(this.listTickets.find(item => item.id != item_cart.id)) this.listTickets.push(item_cart);
-      else if(this.listTickets.find(item => item.id == item_cart.id && item.date != item_cart.date)) this.listTickets.push(item_cart);
-      else {
+      const session = (this.listTickets.find(item => item.id == item_cart.id && item.date == item_cart.date));
 
-        this.listTickets.forEach((item: ItemCart) => {
+      if (session) session.tickets = item_cart.tickets;
+      else this.listTickets.push(item_cart);
 
-          item.tickets = item_cart.tickets;
 
-        })
+    }
+
+    this.emitCart(this.listTickets);
+
+  }
+
+  public deleteTickets(item_cart: ItemCart) {
+
+    if (item_cart.tickets == 0) {
+
+      const index = this.listTickets.findIndex(item => item.id == item_cart.id && item.date == item_cart.date);
+      this.listTickets.splice(index, 1);
+
+    } else {
+
+      const session = (this.listTickets.find(item => item.id == item_cart.id && item.date == item_cart.date));
+
+
+      if (session) {
+
+        session.tickets = item_cart.tickets;
 
       }
 
     }
 
-    console.log(this.listTickets);
 
     this.emitCart(this.listTickets);
 
@@ -42,6 +59,8 @@ export class CartServiceService {
   public emitCart(listTickets: ItemCart[]) {
 
     this.cartSubject.next(listTickets);
+
+    localStorage.setItem('cart', JSON.stringify(listTickets));
 
   }
 
