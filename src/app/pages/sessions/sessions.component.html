@@ -1,15 +1,22 @@
-<section class="grid md:grid-cols-2 gap-4 md:w-[70%] w-[90%] mt-28 mx-auto">
+<section class="grid md:grid-cols-2 gap-10 md:w-[70%] w-[90%] mt-28 mx-auto">
+
+    @if (!pageError) {
+
+        <article class="border-[1px] p-5 flex flex-col gap-4 h-fit">
+
+            @for (item of sessions$ | async; track $index) {
     
-
-    <article class="border-[1px] p-5 flex flex-col gap-4">
-
-        @for (item of sessions$ | async; track $index) {
-
             <app-session [item]="item" [event]="event"></app-session>
+    
+            }
+    
+        </article>
 
-        }
+    } @else {
 
-    </article>
+        EVENT INFO NOT FOUND
+
+    }
 
     <app-cart></app-cart>
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SessionsService } from '../../services/sessions.service';
 import { Observable } from 'rxjs';
@@ -13,12 +13,14 @@ import { CartComponent } from '../../components/cart/cart.component';
   standalone: true,
   imports: [CommonModule, SessionComponent, CartComponent],
   templateUrl: './sessions.component.html',
-  styleUrl: './sessions.component.scss'
+  styleUrl: './sessions.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SessionsComponent {
 
   public sessions_id: string | null = "";
   public sessions$: Observable<Session[]> = new Observable<Session[]>();
+  public pageError: boolean = false;
   public event: Event = {
 
     id: '',
@@ -28,7 +30,7 @@ export class SessionsComponent {
 
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private sessions_service: SessionsService){}
+  constructor(private activatedRoute: ActivatedRoute, private sessions_service: SessionsService, private cdr: ChangeDetectorRef){}
 
   ngOnInit() {
 
@@ -37,9 +39,10 @@ export class SessionsComponent {
     if(this.sessions_id != null) {
 
       this.sessions$ = this.sessions_service.getSession(this.sessions_id);
+      this.sessions$.subscribe(() => {}, error => { console.log(error); this.pageError = true; this.cdr.detectChanges()})
       this.sessions_service.getDataSession(this.sessions_id).subscribe((event: Event) => this.event = event);
 
-    }
+    } 
 
   }
 
