@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Session } from '../../../interfaces/session';
 import { FormsModule } from '@angular/forms';
 import { CartServiceService } from '../../../services/cart-service.service';
@@ -10,7 +10,9 @@ import { ItemCart } from '../../../interfaces/item-cart';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './session.component.html',
-  styleUrl: './session.component.scss'
+  styleUrl: './session.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+  
 })
 export class SessionComponent {
 
@@ -71,13 +73,18 @@ export class SessionComponent {
 
   public substractTicket() {
 
-    if(this.tickets > 0) this.tickets--;
+    if(this.tickets > 0) {
 
-  }
+      this.tickets--;
 
-  public verifyAvailability() {
+      this.item_cart.id = this.event.id;
+      this.item_cart.date = this.item.date;
+      this.item_cart.title = this.event.title;
+      this.item_cart.tickets = this.tickets;
 
-    if((this.tickets > parseInt(this.item.availability)) || (this.tickets < 0)) this.tickets = 0;
+      this.cart_service.deleteTickets(this.item_cart);
+
+    }
 
   }
 
