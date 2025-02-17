@@ -1,0 +1,18 @@
+<section class="flex flex-row items-center justify-between">
+
+    <div class="flex flex-row items-center">
+
+        <p class="mr-3">Fecha: {{item.date}},</p>
+        <p>Disponibilidad: {{item.availability}}</p>
+
+    </div>
+
+    <div class="flex flex-row items-center">
+
+        <span class="text-xl text-blue-400 font-bold hover:scale-110 hover:cursor-pointer transition-all duration-300" (click)="substractTicket()">-</span>
+        <input (focusout)="verifyAvailability()" type="number" name="" id="" class="w-[60px] border-none text-center" [(ngModel)]="tickets" value="{{tickets}}">
+        <span class="text-xl text-blue-400 font-bold hover:scale-110 hover:cursor-pointer transition-all duration-300" (click)="addTicket()">+</span>
+
+    </div>
+
+</section>
