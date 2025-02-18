@@ -60,8 +60,6 @@ export class CartServiceService {
 
     this.cartSubject.next(listTickets);
 
-    localStorage.setItem('cart', JSON.stringify(listTickets));
-
   }
 
 }
