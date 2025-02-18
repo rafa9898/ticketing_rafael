@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Session } from '../../../interfaces/session';
 import { FormsModule } from '@angular/forms';
 import { CartServiceService } from '../../../services/cart-service.service';
@@ -36,11 +36,22 @@ export class SessionComponent {
 
   public tickets: number = 0;
 
-  constructor(private cart_service: CartServiceService) {}
+  constructor(private cart_service: CartServiceService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
 
     this.formatDate();
+
+    this.cart_service.cart$.subscribe((response: ItemCart[]) => {
+
+      const item = response.find(item => item.date == this.item.date);
+
+      if(item) this.tickets = item.tickets;
+      else this.tickets = 0;
+
+      this.cdr.detectChanges();
+
+    })
 
   }
 

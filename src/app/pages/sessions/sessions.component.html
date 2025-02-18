@@ -1,23 +1,33 @@
-<section class="grid md:grid-cols-2 gap-10 md:w-[70%] w-[90%] mt-28 mx-auto">
+<section class=" md:w-[70%] w-[90%] mx-auto mt-28">
 
-    @if (!pageError) {
+    <section class="mb-3 flex flex-row justify-end">
 
-        <article class="border-[1px] p-5 flex flex-col gap-4 h-fit">
-
-            @for (item of sessions$ | async; track $index) {
+        <a href="" [routerLink]="['/catalog']" class="text-sky-500">Volver</a>
     
-            <app-session [item]="item" [event]="event"></app-session>
+    </section>
+
+    <section class="grid md:grid-cols-2 gap-10">
+
+        @if (!pageError) {
     
-            }
+            <article class="border-[1px] p-5 flex flex-col gap-4 h-fit">
     
-        </article>
-
-    } @else {
-
-        EVENT INFO NOT FOUND
-
-    }
-
-    <app-cart></app-cart>
+                @for (item of sessions$ | async; track $index) {
+        
+                <app-session [item]="item" [event]="event"></app-session>
+        
+                }
+        
+            </article>
+    
+        } @else {
+    
+            EVENT INFO NOT FOUND
+    
+        }
+    
+        <app-cart></app-cart>
+    
+    </section>
 
 </section>
