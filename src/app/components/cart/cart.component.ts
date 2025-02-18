@@ -35,10 +35,6 @@ export class CartComponent {
 
   public deleteSessions(id: string, date: string) {
 
-    console.log(id)
-
-    console.log(date)
-
     const item_cart = this.cart.find(item => item.id == id && item.date == date);
 
     if(item_cart) {
