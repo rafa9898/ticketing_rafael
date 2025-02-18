@@ -1,6 +1,6 @@
 export interface Session {
 
-    date: string,
+    date: string | any,
     availability: string
 
 }

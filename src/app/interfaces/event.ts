@@ -6,7 +6,7 @@ export interface Event {
     image: string,
     place?: string,
     startDate?: string,
-    endDate?: string,
+    endDate?: string | any,
     description?: string
 
 }
