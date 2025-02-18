@@ -34,6 +34,11 @@ export class CardComponent {
 
   }
 
+  /**
+	 * @description Function to format start date.
+	 * 
+	 * 
+	 */
   public formatStartDate() {
 
     if (this.item.startDate != undefined) {
@@ -48,6 +53,11 @@ export class CardComponent {
 
   }
 
+  /**
+	 * @description Function to format end date.
+	 * 
+	 * 
+	 */
   public formatEndDate() {
 
     if (this.item.endDate != undefined) {

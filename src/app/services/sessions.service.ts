@@ -11,7 +11,14 @@ export class SessionsService {
 
   constructor(private http: HttpClient) { }
 
-  public getSession(id: string):Observable<Session[]>{
+  /**
+    * @description Method to obtain all the sessions of an Event.
+    * 
+    * @param {String} id Event ID
+    * 
+	  * @returns {Observable<Session[]>} Returns observable with array of Sessions
+    */
+  public getSession(id: string): Observable<Session[]> {
 
     return this.http.get("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
 
@@ -21,7 +28,14 @@ export class SessionsService {
 
   }
 
-  public getDataSession(id: string):Observable<Event> {
+  /**
+    * @description Method to obtain all the data of an Event.
+    * 
+    * @param {String} id Event ID
+    * 
+	  * @returns {Observable<Event>} Returns observable with an Event
+    */
+  public getDataSession(id: string): Observable<Event> {
 
     return this.http.get("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
 

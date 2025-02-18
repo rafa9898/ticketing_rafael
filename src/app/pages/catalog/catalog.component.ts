@@ -21,6 +21,7 @@ export class CatalogComponent {
 
   ngOnInit() {
 
+    //Get all events
     this.events$ = this.events_service.getEvents();
 
   }

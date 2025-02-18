@@ -34,18 +34,24 @@ export class SessionsComponent {
 
   ngOnInit() {
 
+    //Get id from URL
     this.sessions_id = this.activatedRoute.snapshot.paramMap.get('id');
 
     if(this.sessions_id != null) {
 
+      //Get all sessions
       this.sessions$ = this.sessions_service.getSession(this.sessions_id);
 
+      //Order sessions by date ASC
       this.sessions$ = this.sessions$.pipe(
         map(sessions => sessions.sort((a: Session, b: Session) =>
               (new Date(parseInt(a.date))).getTime() - (new Date(parseInt(b.date))).getTime()
         )));
 
+      //Show error page if info not exists
       this.sessions$.subscribe(() => {}, error => { console.log(error); this.pageError = true; this.cdr.detectChanges()})
+
+      //Get info of the session
       this.sessions_service.getDataSession(this.sessions_id).subscribe((event: Event) => this.event = event);
 
     } 

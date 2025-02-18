@@ -10,6 +10,12 @@ export class EventsService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+	 * @description Method to obtain all the events.
+	 * 
+	 * 
+	 * @returns {Observable<Event[]>} Returns observable with array of Events
+	 */
   public getEvents(): Observable<Event[]> {
 
     return this.http.get<Event[]>("http://localhost:4200/assets/data/events.json").pipe(
