@@ -2,15 +2,15 @@
 
     <div class="flex flex-row items-center">
 
-        <p class="mr-3 md:text-base text-xs">Fecha: {{item.date}},</p>
-        <p class="md:text-base text-xs">Disponibilidad: {{item.availability}}</p>
+        <p class="mr-3 xl:text-base text-xs">Fecha: {{item.date}},</p>
+        <p class="xl:text-base text-xs">Disponibilidad: {{item.availability}}</p>
 
     </div>
 
     <div class="flex flex-row items-center">
 
         <span class="text-xl text-blue-400 font-bold hover:scale-110 hover:cursor-pointer transition-all duration-300" (click)="substractTicket()">-</span>
-        <span type="number" name="" id="" class="md:w-[60px] w-[30px] border-none text-center">{{tickets}}</span>
+        <span type="number" name="" id="" class="xl:w-[60px] w-[30px] border-none text-center">{{tickets}}</span>
         <span class="text-xl text-blue-400 font-bold hover:scale-110 hover:cursor-pointer transition-all duration-300" (click)="addTicket()">+</span>
 
     </div>
