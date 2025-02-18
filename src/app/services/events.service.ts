@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Event } from '../interfaces/event';
 
 @Injectable({
@@ -12,7 +12,10 @@ export class EventsService {
 
   public getEvents(): Observable<Event[]> {
 
-    return this.http.get<Event[]>("http://localhost:4200/assets/data/events.json");
+    return this.http.get<Event[]>("http://localhost:4200/assets/data/events.json").pipe(
+      map(events => events.sort((a: Event, b: Event) =>
+        (new Date(parseInt(a.endDate))).getTime() - (new Date(parseInt(b.endDate))).getTime()
+      )));
 
   }
 
