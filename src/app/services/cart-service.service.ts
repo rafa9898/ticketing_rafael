@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ItemCart } from '../interfaces/item-cart';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -33,7 +33,6 @@ export class CartServiceService {
 
 
     }
-
     //Emit cart results
     this.emitCart(this.listTickets);
 
@@ -50,7 +49,7 @@ export class CartServiceService {
     if (item_cart.tickets == 0) {
 
       const index = this.listTickets.findIndex(item => item.id == item_cart.id && item.date == item_cart.date);
-      this.listTickets.splice(index, 1);
+      this.listTickets.splice(index, 1); //Splice element from the array if tickets => 0
 
     } else {
 
@@ -59,7 +58,7 @@ export class CartServiceService {
 
       if (session) {
 
-        session.tickets = item_cart.tickets;
+        session.tickets = item_cart.tickets; //New value for tickets
 
       }
 

@@ -23,6 +23,7 @@ export class CartComponent {
 
   ngOnInit() {
 
+    //Get cart info
     this.cart$ = this.cart_service.cart$;
 
     this.cart$.subscribe((cart: ItemCart[]) => {
@@ -33,14 +34,22 @@ export class CartComponent {
 
   }
 
+  /**
+    * @description Method to delete sessions.
+    * 
+    * @param {string} id ID we want to delete
+    * @param {string} date Date we want to delete
+    * 
+    */
   public deleteSessions(id: string, date: string) {
 
+    //Find item cart with this id and date
     const item_cart = this.cart.find(item => item.id == id && item.date == date);
 
     if(item_cart) {
 
-      item_cart.tickets--;
-      this.cart_service.deleteTickets(item_cart);
+      item_cart.tickets--; //Remove 1 ticket
+      this.cart_service.deleteTickets(item_cart); //Update cart
 
     }
     
