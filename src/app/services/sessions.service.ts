@@ -5,44 +5,44 @@ import { Session } from '../interfaces/session';
 import { Event } from '../interfaces/event';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class SessionsService {
 
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  /**
-    * @description Method to obtain all the sessions of an Event.
-    * 
-    * @param {String} id Event ID
-    * 
+	/**
+	  * @description Method to obtain all the sessions of an Event.
+	  * 
+	  * @param {String} id Event ID
+	  * 
 	  * @returns {Observable<Session[]>} Returns observable with array of Sessions
-    */
-  public getSession(id: string): Observable<Session[]> {
+	  */
+	public getSession(id: string): Observable<Session[]> {
 
-    return this.http.get<Session[]>("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
+		return this.http.get<Session[]>("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
 
-      return response.sessions;
+			return response.sessions;
 
-    }))
+		}))
 
-  }
+	}
 
-  /**
-    * @description Method to obtain all the data of an Event.
-    * 
-    * @param {String} id Event ID
-    * 
+	/**
+	  * @description Method to obtain all the data of an Event.
+	  * 
+	  * @param {String} id Event ID
+	  * 
 	  * @returns {Observable<Event>} Returns observable with an Event
-    */
-  public getDataSession(id: string): Observable<Event> {
+	  */
+	public getDataSession(id: string): Observable<Event> {
 
-    return this.http.get<Event>("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
+		return this.http.get<Event>("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
 
-      return response.event;
+			return response.event;
 
-    }))
+		}))
 
-  }
+	}
 
 }

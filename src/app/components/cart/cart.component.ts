@@ -6,78 +6,79 @@ import { CommonModule } from '@angular/common';
 import { GroupedCart } from '../../interfaces/grouped-cart';
 
 @Component({
-  selector: 'app-cart',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'app-cart',
+	standalone: true,
+	imports: [CommonModule],
+	templateUrl: './cart.component.html',
+	styleUrl: './cart.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartComponent {
 
-  public cart$: Observable<ItemCart[]> = new Observable<ItemCart[]>();
-  public cart: ItemCart[] = [];
-  public grouped_cart: GroupedCart[] = [];
+	public cart$: Observable<ItemCart[]> = new Observable<ItemCart[]>();
+	public cart: ItemCart[] = [];
+	public grouped_cart: GroupedCart[] = [];
 
-  constructor(private cart_service: CartServiceService, private cdr: ChangeDetectorRef) {
+	constructor(private cart_service: CartServiceService, private cdr: ChangeDetectorRef) {
 
-  }
+	}
 
-  ngOnInit() {
+	ngOnInit() {
 
-    //Get cart info
-    this.cart$ = this.cart_service.cart$;
+		//Get cart info
+		this.cart$ = this.cart_service.cart$;
 
-    this.cart$.subscribe((cart: ItemCart[]) => {
+		this.cart$.subscribe((cart: ItemCart[]) => {
 
-      this.cart = cart;
-      this.grouped_cart = this.groupSessionsByName();
+			this.cart = cart;
+			this.grouped_cart = this.groupSessionsByName();
 
-      this.cdr.detectChanges();
+			this.cdr.detectChanges();
 
-    })
+		})
 
-  }
+	}
 
-  public groupSessionsByName() {
+	//Method to group sessions by name
+	public groupSessionsByName() {
 
-    const groupedMap = this.cart.reduce((map, { title, ...option }) => {
-      if (!map.has(title)) {
-        map.set(title, [])
-      }
-      map.get(title).push(option)
-      return map
-    }, new Map())
-    
-    const groupedSessions = Array.from(groupedMap, ([ label, options ]) => ({
-      label,
-      options
-    }));
+		const groupedMap = this.cart.reduce((map, { title, ...option }) => {
+			if (!map.has(title)) {
+				map.set(title, [])
+			}
+			map.get(title).push(option)
+			return map
+		}, new Map())
 
-    return groupedSessions;
+		const groupedSessions = Array.from(groupedMap, ([label, options]) => ({
+			label,
+			options
+		}));
 
-  }
+		return groupedSessions;
 
-  /**
-    * @description Method to delete sessions.
-    * 
-    * @param {string} id ID we want to delete
-    * @param {string} date Date we want to delete
-    * 
-    */
-  public deleteSessions(id: string, date: string) {
+	}
 
-    //Find item cart with this id and date
-    const item_cart = this.cart.find(item => item.id == id && item.date == date);
+	/**
+	  * @description Method to delete sessions.
+	  * 
+	  * @param {string} id ID we want to delete
+	  * @param {string} date Date we want to delete
+	  * 
+	  */
+	public deleteSessions(id: string, date: string) {
 
-    if(item_cart) {
+		//Find item cart with this id and date
+		const item_cart = this.cart.find(item => item.id == id && item.date == date);
 
-      item_cart.tickets--; //Remove 1 ticket
-      this.cart_service.deleteTickets(item_cart); //Update cart
+		if (item_cart) {
 
-    }
-    
-  }
-  
+			item_cart.tickets--; //Remove 1 ticket
+			this.cart_service.deleteTickets(item_cart); //Update cart
+
+		}
+
+	}
+
 
 }

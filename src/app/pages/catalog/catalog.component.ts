@@ -6,24 +6,24 @@ import { Event } from '../../interfaces/event';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-catalog',
-  standalone: true,
-  imports: [CardComponent, CommonModule],
-  templateUrl: './catalog.component.html',
-  styleUrl: './catalog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'app-catalog',
+	standalone: true,
+	imports: [CardComponent, CommonModule],
+	templateUrl: './catalog.component.html',
+	styleUrl: './catalog.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CatalogComponent {
 
-  public events$ = new Observable<Event[]>();
+	public events$ = new Observable<Event[]>();
 
-  constructor(private events_service: EventsService){}
+	constructor(private events_service: EventsService) { }
 
-  ngOnInit() {
+	ngOnInit() {
 
-    //Get all events
-    this.events$ = this.events_service.getEvents();
+		//Get all events
+		this.events$ = this.events_service.getEvents();
 
-  }
+	}
 
 }

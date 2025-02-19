@@ -9,53 +9,53 @@ import { SessionComponent } from './session/session.component';
 import { CartComponent } from '../../components/cart/cart.component';
 
 @Component({
-  selector: 'app-sessions',
-  standalone: true,
-  imports: [CommonModule, SessionComponent, CartComponent, RouterLink],
-  templateUrl: './sessions.component.html',
-  styleUrl: './sessions.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'app-sessions',
+	standalone: true,
+	imports: [CommonModule, SessionComponent, CartComponent, RouterLink],
+	templateUrl: './sessions.component.html',
+	styleUrl: './sessions.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SessionsComponent {
 
-  public sessions_id: string | null = "";
-  public sessions$: Observable<Session[]> = new Observable<Session[]>();
-  public pageError: boolean = false;
-  public event: Event = {
+	public sessions_id: string | null = "";
+	public sessions$: Observable<Session[]> = new Observable<Session[]>();
+	public pageError: boolean = false;
+	public event: Event = {
 
-    id: '',
-    title: '',
-    subtitle: '',
-    image: ''
+		id: '',
+		title: '',
+		subtitle: '',
+		image: ''
 
-  }
+	}
 
-  constructor(private activatedRoute: ActivatedRoute, private sessions_service: SessionsService, private cdr: ChangeDetectorRef){}
+	constructor(private activatedRoute: ActivatedRoute, private sessions_service: SessionsService, private cdr: ChangeDetectorRef) { }
 
-  ngOnInit() {
+	ngOnInit() {
 
-    //Get id from URL
-    this.sessions_id = this.activatedRoute.snapshot.paramMap.get('id');
+		//Get id from URL
+		this.sessions_id = this.activatedRoute.snapshot.paramMap.get('id');
 
-    if(this.sessions_id != null) {
+		if (this.sessions_id != null) {
 
-      //Get all sessions
-      this.sessions$ = this.sessions_service.getSession(this.sessions_id);
+			//Get all sessions
+			this.sessions$ = this.sessions_service.getSession(this.sessions_id);
 
-      //Order sessions by date ASC
-      this.sessions$ = this.sessions$.pipe(
-        map(sessions => sessions.sort((a: Session, b: Session) =>
-              (new Date(parseInt(a.date))).getTime() - (new Date(parseInt(b.date))).getTime()
-        )));
+			//Order sessions by date ASC
+			this.sessions$ = this.sessions$.pipe(
+				map(sessions => sessions.sort((a: Session, b: Session) =>
+					(new Date(parseInt(a.date))).getTime() - (new Date(parseInt(b.date))).getTime()
+				)));
 
-      //Show error page if info not exists
-      this.sessions$.subscribe(() => {}, error => { console.log(error); this.pageError = true; this.cdr.detectChanges()})
+			//Show error page if info not exists
+			this.sessions$.subscribe(() => { }, error => { console.log(error); this.pageError = true; this.cdr.detectChanges() })
 
-      //Get info of the session
-      this.sessions_service.getDataSession(this.sessions_id).subscribe((event: Event) => this.event = event);
+			//Get info of the session
+			this.sessions_service.getDataSession(this.sessions_id).subscribe((event: Event) => this.event = event);
 
-    } 
+		}
 
-  }
+	}
 
 }

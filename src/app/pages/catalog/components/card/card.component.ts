@@ -3,73 +3,73 @@ import { Event } from '../../../../interfaces/event';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-card',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
-  
+	selector: 'app-card',
+	standalone: true,
+	imports: [RouterLink],
+	templateUrl: './card.component.html',
+	styleUrl: './card.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class CardComponent {
 
-  @Input() item: Event = {
+	@Input() item: Event = {
 
-    id: "",
-    title: "",
-    subtitle: "",
-    image: "",
-    place: "",
-    startDate: "",
-    endDate: "",
-    description: ""
+		id: "",
+		title: "",
+		subtitle: "",
+		image: "",
+		place: "",
+		startDate: "",
+		endDate: "",
+		description: ""
 
-  };
+	};
 
-  ngOnInit() {
+	ngOnInit() {
 
-    this.formatStartDate();
+		this.formatStartDate();
 
-    this.formatEndDate();
+		this.formatEndDate();
 
-  }
+	}
 
-  /**
-	 * @description Function to format start date.
-	 * 
-	 * 
-	 */
-  public formatStartDate() {
+	/**
+	     * @description Function to format start date.
+	     * 
+	     * 
+	     */
+	public formatStartDate() {
 
-    if (this.item.startDate != undefined) {
+		if (this.item.startDate != undefined) {
 
-      const date = new Date(parseInt(this.item.startDate));
+			const date = new Date(parseInt(this.item.startDate));
 
-      const formatted_date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+			const formatted_date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
 
-      this.item.startDate = formatted_date;
+			this.item.startDate = formatted_date;
 
-    }
+		}
 
-  }
+	}
 
-  /**
-	 * @description Function to format end date.
-	 * 
-	 * 
-	 */
-  public formatEndDate() {
+	/**
+	     * @description Function to format end date.
+	     * 
+	     * 
+	     */
+	public formatEndDate() {
 
-    if (this.item.endDate != undefined) {
+		if (this.item.endDate != undefined) {
 
-      const date = new Date(parseInt(this.item.endDate));
+			const date = new Date(parseInt(this.item.endDate));
 
-      const formatted_date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+			const formatted_date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
 
-      this.item.endDate = formatted_date;
+			this.item.endDate = formatted_date;
 
-    }
+		}
 
-  }
+	}
 
 }

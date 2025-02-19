@@ -4,25 +4,25 @@ import { map, Observable } from 'rxjs';
 import { Event } from '../interfaces/event';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class EventsService {
 
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  /**
-	 * @description Method to obtain all the events.
-	 * 
-	 * 
-	 * @returns {Observable<Event[]>} Returns observable with array of Events
-	 */
-  public getEvents(): Observable<Event[]> {
+	/**
+	     * @description Method to obtain all the events.
+	     * 
+	     * 
+	     * @returns {Observable<Event[]>} Returns observable with array of Events
+	     */
+	public getEvents(): Observable<Event[]> {
 
-    return this.http.get<Event[]>("http://localhost:4200/assets/data/events.json").pipe(
-      map(events => events.sort((a: Event, b: Event) =>
-        (new Date(parseInt(a.endDate))).getTime() - (new Date(parseInt(b.endDate))).getTime()
-      )));
+		return this.http.get<Event[]>("http://localhost:4200/assets/data/events.json").pipe(
+			map(events => events.sort((a: Event, b: Event) =>
+				(new Date(parseInt(a.endDate))).getTime() - (new Date(parseInt(b.endDate))).getTime()
+			)));
 
-  }
+	}
 
 }
