@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ItemCart } from '../../interfaces/item-cart';
 import { CartServiceService } from '../../services/cart-service.service';
 import { CommonModule } from '@angular/common';
+import { GroupedCart } from '../../interfaces/grouped-cart';
 
 @Component({
   selector: 'app-cart',
@@ -16,6 +17,7 @@ export class CartComponent {
 
   public cart$: Observable<ItemCart[]> = new Observable<ItemCart[]>();
   public cart: ItemCart[] = [];
+  public grouped_cart: GroupedCart[] = [];
 
   constructor(private cart_service: CartServiceService, private cdr: ChangeDetectorRef) {
 
@@ -29,8 +31,30 @@ export class CartComponent {
     this.cart$.subscribe((cart: ItemCart[]) => {
 
       this.cart = cart;
+      this.grouped_cart = this.groupSessionsByName();
+
+      this.cdr.detectChanges();
 
     })
+
+  }
+
+  public groupSessionsByName() {
+
+    const groupedMap = this.cart.reduce((map, { title, ...option }) => {
+      if (!map.has(title)) {
+        map.set(title, [])
+      }
+      map.get(title).push(option)
+      return map
+    }, new Map())
+    
+    const groupedSessions = Array.from(groupedMap, ([ label, options ]) => ({
+      label,
+      options
+    }));
+
+    return groupedSessions;
 
   }
 
