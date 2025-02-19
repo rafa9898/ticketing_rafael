@@ -20,7 +20,7 @@ export class SessionsService {
     */
   public getSession(id: string): Observable<Session[]> {
 
-    return this.http.get("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
+    return this.http.get<Session[]>("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
 
       return response.sessions;
 
@@ -37,7 +37,7 @@ export class SessionsService {
     */
   public getDataSession(id: string): Observable<Event> {
 
-    return this.http.get("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
+    return this.http.get<Event>("http://localhost:4200/assets/data/event-info-" + id + ".json").pipe(map((response: any) => {
 
       return response.event;
 
